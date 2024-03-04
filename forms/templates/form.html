@@ -122,6 +122,17 @@
           </p>
           <input type="text" id="newFilename" name="newFilename" placeholder="Enter new filename" />
           <p class="" id="reEntername" name="reEntername">{{reEntername}}</p>
+          <div class="form-group mb-1">
+            <label for="datasource1">Datasource:</label><br>
+            <select class="form-select w-100" aria-label="Default select example" id="datasource1" name="datasource">
+              <option value="" selected disabled>Choose DataSource</option>
+              <option value="Production">Production</option>
+              <option value="Sales">Sales</option>
+              <option value="Foods">Foods</option>
+              <option value="Clothing">Clothing</option>
+            </select>
+            <p style="color: red;" id="extensionError" class="error"></p> <!-- Added class error -->
+          </div>
           <div class="form-group">
             <label for="extension">Extension:</label>
             <select class="form-select" aria-label="Default select example" id="extensionSelect1" name="extension1">
@@ -146,6 +157,8 @@
     </div>
   </div>
   {% endif %}
+
+
   </form>
   <script>
     

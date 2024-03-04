@@ -16,8 +16,6 @@ document.getElementById("uploadBtn").addEventListener("click", function () {
     let extension_error = document.getElementById("extensionError");
     let msg = document.getElementById('msg')
 
-    
-
   
     Upload_ErrorMsg.textContent = "";
     extension_error.textContent = "";
@@ -53,28 +51,29 @@ confirmReplaceModal.style.display = 'block'
 
 let confirmReplaceBtn = document.getElementById('confirmReplaceBtn');
 
-    confirmReplaceBtn.addEventListener('click', function (e) {
-      let new_Filename = document.getElementById('newFilename').value.trim();
-      let extensionSelect_1 = document.getElementById('extensionSelect1').value.trim();
+confirmReplaceBtn.addEventListener('click', function () {
+  let new_Filename = document.getElementById('newFilename').value.trim();
+  let datasource = document.getElementById('datasource1');
+  let getDataSourcevalue = datasource.options[datasource.selectedIndex].value.trim();
 
-      fetch(`/replace_filename/?getNewName=${new_Filename}&getExtension=${extensionSelect_1}`)
-        .then(response => response.json())
-        .then(data => {
+  let extensionSelect1 = document.getElementById('extensionSelect1').value.trim();
+
+  fetch(`/replace_filename/?getNewName=${new_Filename}&datasource=${getDataSourcevalue}&getExtension=${extensionSelect1}`)
+      .then(response => response.json())
+      .then(data => {
           if (data.Bool) {
-            document.getElementById('reEntername').innerText = data.reEntername;
+              document.getElementById('reEntername').innerText = data.reEntername;
           } else {
-            let msg = document.getElementById('msg')
-            // let link = document.getElementById('link')
-            msg.textContent = 'File renamed Successfully and Uploaded to Bucket!'
-            // link.textContent = 'Go for analysis'
-            document.getElementById('reEntername').innerText = 'File renamed successfully!!';
-            setTimeout(() => {
-              closeModal();
-            }, 2000);
+              let msg = document.getElementById('msg');
+              msg.textContent = 'File renamed Successfully and Uploaded to Bucket!';
+              document.getElementById('reEntername').innerText = 'File renamed successfully!!';
+              setTimeout(() => {
+                  closeModal();
+              }, 2000);
           }
-        })
-        .catch(error => console.error('Error:', error));
-    });
+      })
+      .catch(error => console.error('Error:', error));
+});
 
     function closeModal() {
       let confirmReplaceModal = document.getElementById('confirmReplaceModal');
